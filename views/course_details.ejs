@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Course Details</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Course Details</h1>
+    <ul>
+      <%
+        var list = '';
+        list += '<li class="course">' + 'print:' + temp + '</li>';
+        for (i = 0; i < course_docs.length; i++) {
+          list += '<li class="course">' + course_docs[i].course + '</li>';
+        }
+      %>
+      <%- list %>
+    </ul>
+  </body>
+</html>
