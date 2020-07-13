@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add Course</title>
+    <title>Timetabling Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Capriola&family=Chewy&family=Gochi+Hand&family=Sriracha&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <form id="formAddCourse" name="addcourse" method="post" action="/addcourse">
-        <input id="inputCourse1" type="text" placeholder="course code: csc373" name="course1" />
-        <input id="inputSession1" type="text" placeholder="session: F/W/Y" name="session1" /><br><br>
-        <input id="inputCourse2" type="text" placeholder="course code: csc373" name="course2" />
-        <input id="inputSession2" type="text" placeholder="session: F/W/Y" name="session2" /><br><br>
-        <input id="inputCourse3" type="text" placeholder="course code: csc373" name="course3" />
-        <input id="inputSession3" type="text" placeholder="session: F/W/Y" name="session3" /><br><br>
-        <input id="inputCourse4" type="text" placeholder="course code: csc373" name="course4" />
-        <input id="inputSession4" type="text" placeholder="session: F/W/Y" name="session4" /><br><br>
-        <input id="inputCourse5" type="text" placeholder="course code: csc373" name="course5" />
-        <input id="inputSession5" type="text" placeholder="session: F/W/Y" name="session5" /><br><br>
-        <input id="inputCourse6" type="text" placeholder="course code: csc373" name="course6" />
-        <input id="inputSession6" type="text" placeholder="session: F/W/Y" name="session6" /><br><br>
-      <button id="btnSubmit" type="submit">Submit</button>
+    <h1>Timetabling Tool</h1>
+    <% if(errors.errors) {%>
+      <div class="alert alert-danger">
+        <p style="color: coral">Please check the following problems and resubmit:</p>
+        <ul>
+          <% for (k = 0; k < errors.errors.length; k++) {%>
+          <li style="color: coral"><%= errors.errors[k].msg %>: "<%= errors.errors[k].value %>"</li>
+          <%}%>
+        </ul>
+      </div>
+      <%}%>
+    <p>
+      This is a web app designed for U of T Arts & Science students to plan for undergraduate courses (2020-2021). It outputs all possible timetables for the specified courses entered by the user. 
+    </p>
+    <p>
+      Please enter your course code and session below. Have fun timetabling!
+    </p>
+    <p><em>
+      Note: Can only plan for Fall or Winter courses, but not at the same time.
+    </em></p><br>
+    <form id="formAddCourse" name="addcourse" method="post" action="/addcourse" autocomplete="off">
+        <input id="inputCourse1" type="text" placeholder="course code: csc373" name="course1" value="<%= (errors.errors || come_back) ? prev_courses[0] : "" %>" />
+        <input id="inputSession1" type="text" placeholder="session: F/S/Y" name="session1" value="<%= (errors.errors || come_back) ? prev_sessions[0] : "" %>"/><br><br>
+        <input id="inputCourse2" type="text" placeholder="course code: csc373" name="course2" value="<%= (errors.errors || come_back) ? prev_courses[1] : "" %>"/>
+        <input id="inputSession2" type="text" placeholder="session: F/S/Y" name="session2" value="<%= (errors.errors || come_back) ? prev_sessions[1] : "" %>"/><br><br>
+        <input id="inputCourse3" type="text" placeholder="course code: csc373" name="course3" value="<%= (errors.errors || come_back) ? prev_courses[2] : "" %>"/>
+        <input id="inputSession3" type="text" placeholder="session: F/S/Y" name="session3" value="<%= (errors.errors || come_back) ? prev_sessions[2] : "" %>"/><br><br>
+        <input id="inputCourse4" type="text" placeholder="course code: csc373" name="course4" value="<%= (errors.errors || come_back) ? prev_courses[3] : "" %>"/>
+        <input id="inputSession4" type="text" placeholder="session: F/S/Y" name="session4" value="<%= (errors.errors || come_back) ? prev_sessions[3] : "" %>"/><br><br>
+        <input id="inputCourse5" type="text" placeholder="course code: csc373" name="course5" value="<%= (errors.errors || come_back) ? prev_courses[4] : "" %>"/>
+        <input id="inputSession5" type="text" placeholder="session: F/S/Y" name="session5" value="<%= (errors.errors || come_back) ? prev_sessions[4] : "" %>"/><br><br>
+        <input id="inputCourse6" type="text" placeholder="course code: csc373" name="course6" value="<%= (errors.errors || come_back) ? prev_courses[5] : "" %>"/>
+        <input id="inputSession6" type="text" placeholder="session: F/S/Y" name="session6" value="<%= (errors.errors || come_back) ? prev_sessions[5] : "" %>"/><br><br>
+      <button id="btnSubmit" type="submit" class="button">Timetable >></button>
+      <p>Please wait after clicking this button (~10 seconds to load). <em>Do not refresh or reclick.</em></p>
+<!--       <script type="text/javascript">
+        $(document).ready(function(){
+          $(".button").click(function(){
+            $(this).addClass("active");
+          });
+        });
+      </script> -->
     </form>
   </body>
 </html>
