@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Timetables</title>
+    <title>My Timetables</title>
+    <link href="https://fonts.googleapis.com/css2?family=Capriola&family=Chewy&family=Gochi+Hand&family=Sriracha&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1>Timetable</h1>
+    <p>Here are the timetable options for the courses you entered. To return to the previous course input page, click the "Go back" button below :)</p>
+    <form id="formAddCourse" name="addcourse" method="post" action="/go_back">
+      <button id="btnGoBack" type="submit">Go back</button>
+    </form>
+    <p>Note: Tutorials and asynchronous lecture sections are not planned in the timetables generated. If your course doesn't show up, it might be not offered in the session you entered or it is asynchronous. Please visit the <a target="_blank" href='https://timetable.iit.artsci.utoronto.ca'>official timetable</a> for course section details.</p>
     <%
     var list = '';
     var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     for (k = 0; k < myTimetables.length; k++) {
-        list += '<p>Timetable Option ' + (k+1).toString() + '</p>';
-        list += '<table border="1" width="100%"><thead><tr class="timetable-row"><th width="15%"></th><th width="15%">Mon</th><th width="15%">Tue</th><th width="15%">Wed</th><th width="15%">Thu</th><th width="15%">Fri</th></tr></thead><tbody>';
+        list += '<h2>Timetable Option ' + (k+1).toString() + '</h2>';
+        list += '<table width="100%"><thead><tr class="timetable-row"><th width="15%"></th><th width="15%">Mon</th><th width="15%">Tue</th><th width="15%">Wed</th><th width="15%">Thu</th><th width="15%">Fri</th></tr></thead><tbody>';
         var myTimetable = myTimetables[k];
         for (i = 9; i <= 22; i++) {
             list += '<tr><th width="10%">' + i + ':00</th>';
@@ -19,7 +25,7 @@
                 item = myTimetable[days[j]][(i-9)];
                 if (typeof item == 'string') {
                     var myColor = myColors[item.slice(0,6)];
-                    list += '<td width="15%" style="background-color:' + myColor + '">' + item + '</td>';
+                    list += '<td width="15%" style="background-color:' + myColor + '">' + item.slice(0,6).toUpperCase() + '</td>';
                 } else {
                     list += '<td width="15%"></td>';
                 }
